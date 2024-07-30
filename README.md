@@ -27,3 +27,4 @@ sistema é interativo, utilizando um menu baseado em texto para interação com 
 seca, nascimento de bezerro e teste de qualidade de colostro
 
 ## Diagrma de Classe
+![Image](https://github.com/user-attachments/assets/1bf82b6c-7956-402c-8d4a-282e65683439)
