@@ -9,12 +9,33 @@ import java.time.LocalDate;
 
 public class GadoDeCorte extends Gado implements GerenciamentoDoGado {
 
+	/**
+	 * Scanner para entrada de dados do usuário.
+	 */
 	Scanner scanner = new Scanner(System.in); 
 
+	/**
+	 * Construtor para a classe GadoDeCorte.
+	 *
+	 * @param nome O nome do gado.
+	 * @param numeroBrinco O número do brinco do gado.
+	 * @param dataUltrassom A data do último ultrassom do gado.
+	 * @param previsaoNascimentoBezerro A previsão de nascimento do bezerro.
+	 * @param aplicacaoBisnagaDeVacaSeca A data de aplicação da bisnaga de vaca seca.
+	 * @param regimePreParto A data de início do regime pré-parto (30 dias antes do parto).
+	 * @param medicamentoAplicado O medicamento aplicado ao gado.
+	 * @param bezerro O bezerro associado ao gado.
+	 * @param qualidadeColostro A qualidade do colostro.
+	 */
 	public GadoDeCorte(String nome, int numeroBrinco, LocalDate dataUltrassom, LocalDate previsaoNascimentoBezerro, LocalDate aplicacaoBisnagaDeVacaSeca, LocalDate regimePreParto, Medicamentos medicamentoAplicado, Bezerros bezerro, double qualidadeColostro) {
 		super(nome, numeroBrinco, dataUltrassom, previsaoNascimentoBezerro, aplicacaoBisnagaDeVacaSeca, regimePreParto, medicamentoAplicado, bezerro, qualidadeColostro);
 	}
 
+	/**
+	 * Registra um novo animal com um nome fornecido pelo usuário e gera um número de brinco aleatório.
+	 * O nome e o número do brinco são então atribuídos ao animal.
+	 * Exibe uma mensagem de confirmação de sucesso ao final do registro.
+	 */
 	@Override
 	public void registrarAnimal() {
 
@@ -33,6 +54,14 @@ public class GadoDeCorte extends Gado implements GerenciamentoDoGado {
 		System.out.println("Animal registrado com sucesso!");
 	}
 
+	/**
+	 * Registra a data do ultrassom para o animal. Se o animal já possui um ultrassom cadastrado, 
+	 * uma mensagem é exibida e o método retorna. Caso contrário, solicita ao usuário a data do ultrassom
+	 * no formato "dd/MM/yyyy". Após a entrada válida da data, ela é armazenada e um relatório de 
+	 * gerenciamento pré-parto é gerado.
+	 * 
+	 * @throws DateTimeParseException Se a data fornecida não estiver no formato "dd/MM/yyyy".
+	 */
 	@Override
 	public void registroUltrassom(){
 
@@ -56,6 +85,16 @@ public class GadoDeCorte extends Gado implements GerenciamentoDoGado {
 
 	}
 
+	/**
+	 * Gera um relatório de gerenciamento pré-parto para o animal. 
+	 * O relatório inclui a previsão de nascimento do bezerro e a data de início do regime pré-parto.
+	 * 
+	 * Primeiro, verifica se o ultrassom foi registrado para o animal. Se não, exibe uma mensagem informando que o ultrassom não está cadastrado e encerra o método.
+	 * Caso contrário, solicita ao usuário a idade do bezerro em meses e calcula a previsão de nascimento do bezerro com base na data do ultrassom e na idade informada.
+	 * Também calcula a data de início do regime pré-parto (30 dias antes da previsão de nascimento do bezerro) e exibe essas informações formatadas.
+	 * 
+	 * Se o relatório de gerenciamento pré-parto já tiver sido gerado anteriormente, exibe uma mensagem informando que o relatório já foi gerado.
+	 */
 	@Override
 	public void gerenciamentoPreParto() {
 
@@ -84,6 +123,18 @@ public class GadoDeCorte extends Gado implements GerenciamentoDoGado {
 		}
 	}
 
+	/**
+	 * Registra a aplicação da bisnaga de vaca seca para o animal e o medicamento aplicado.
+	 * 
+	 * Primeiro, verifica se a previsão de nascimento do bezerro foi definida. Se não, a aplicação não pode ser registrada e o método termina.
+	 * Caso a previsão esteja definida, solicita ao usuário a data da aplicação da bisnaga de vaca seca. A data deve ser igual à data de início do regime pré-parto.
+	 * O usuário é solicitado a fornecer a data no formato "dd/MM/yyyy". Se a data não for válida ou não corresponder ao início do regime pré-parto, solicita a entrada novamente.
+	 * Após a entrada válida da data, o método exibe uma lista de medicamentos disponíveis e solicita ao usuário para escolher um.
+	 * Com base na escolha do usuário, o medicamento é registrado e os detalhes da aplicação (incluindo a data mínima para abate) são exibidos.
+	 * 
+	 * @throws DateTimeParseException Se a data fornecida não estiver no formato "dd/MM/yyyy".
+	 * @throws NullPointerException Se a previsão de nascimento do bezerro não estiver definida, o método não prossegue com o registro da aplicação.
+	 */
 	@Override
 	public void aplicacaoBisnagaDeVacaSeca() {
 		if (this.getPrevisaoNascimentoBezerro() != null) {
@@ -121,7 +172,7 @@ public class GadoDeCorte extends Gado implements GerenciamentoDoGado {
 				System.out.println("Qual rémedio você deseja aplicar no animal: "
 						+ "\n[1] Cepravin"
 						+ "\n[2] Orbenin"
-						+"\n[3] Orbenin"
+						+"\n[3] Albiotic"
 						+"\n[4] Bovimast"
 						+"\n[5] Spectrazol");
 
@@ -180,6 +231,23 @@ public class GadoDeCorte extends Gado implements GerenciamentoDoGado {
 	}
 
 
+	/**
+	 * Registra o nascimento de um bezerro para o animal.
+	 * 
+	 * O método realiza as seguintes etapas:
+	 * <ol>
+	 * <li>Verifica se há uma previsão de nascimento do bezerro registrada. Se não houver, o método exibe uma mensagem e termina.</li>
+	 * <li>Solicita ao usuário a data de nascimento do bezerro no formato "dd/MM/yyyy". Se a data estiver vazia, exibe uma mensagem de erro e termina.</li>
+	 * <li>Se a data for válida, solicita o peso do bezerro. O usuário deve fornecer um valor numérico. Se o valor não for numérico, solicita a entrada novamente.</li>
+	 * <li>Solicita ao usuário o sexo do bezerro, com opções para macho ou fêmea. Se a opção for inválida, exibe uma mensagem de erro e termina.</li>
+	 * <li>Cria um objeto `Bezerros` com as informações fornecidas e gera um número de brinco para o bezerro. Se o sexo do bezerro for macho, define o parâmetro apropriado. Caso contrário, define-o como fêmea.</li>
+	 * <li>Exibe uma mensagem confirmando o cadastro do bezerro com seu número de brinco.</li>
+	 * <li>Define o objeto `Bezerros` criado no animal e limpa as informações de ultrassom, previsão de nascimento e regime pré-parto.</li>
+	 * </ol>
+	 * 
+	 * @throws DateTimeParseException Se a data de nascimento fornecida não estiver no formato "dd/MM/yyyy".
+	 * @throws InputMismatchException Se o valor do peso fornecido não for um número válido.
+	 */
 	@Override
 	public void registroNascimentoBezerro() {
 		scanner.nextLine();
@@ -242,7 +310,19 @@ public class GadoDeCorte extends Gado implements GerenciamentoDoGado {
 
 	}
 
-
+	/**
+	 * Realiza o teste de qualidade do colostro coletado para o bezerro do animal.
+	 * 
+	 * O método executa as seguintes etapas:
+	 * <ol>
+	 * <li>Verifica se há um bezerro registrado para o animal. Se não houver, exibe uma mensagem de erro e termina.</li>
+	 * <li>Solicita ao usuário o valor da qualidade do colostro coletado em um valor numérico.</li>
+	 * <li>Se o valor da qualidade do colostro for maior ou igual a 21, considera o teste como aprovado e exibe uma mensagem de sucesso com o resultado "APROVADO".</li>
+	 * <li>Se o valor da qualidade do colostro for menor que 21, considera o teste como reprovado, exibe uma mensagem de sucesso com o resultado "REPROVADO", e orienta a retirar colostro adequado no banco de colostro.</li>
+	 * </ol>
+	 * 
+	 * @throws InputMismatchException Se o valor da qualidade do colostro fornecido não for um número válido.
+	 */
 	@Override
 	public void testeQualidadeColostro() {
 

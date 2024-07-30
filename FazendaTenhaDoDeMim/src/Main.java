@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Classe principal para o programa de gerenciamento de gado.
+ * Classe que serve como ponto de entrada para a aplicação e fornece um menu
+ * para gerenciar gado de leite e gado de corte.
+ */
 public class Main {
 
 
-	static ArrayList<GadoDeLeite> listaGadoDeLeite = new ArrayList<>();
+	private static ArrayList<GadoDeLeite> listaGadoDeLeite = new ArrayList<>();
 	private static ArrayList<GadoDeCorte> listaGadoDeCorte = new ArrayList<>();
 
 
@@ -28,6 +33,11 @@ public class Main {
 				scanner.nextLine();
 
 				switch (escolha) {
+				
+				/**
+				 * Cadastro de gado.
+				 * Trata do cadastro de gado leiteiro ou de corte.
+				 */
 				case 1:
 					System.out.println("\n-=-=-=Cadastro de Gado-=-=-=-");
 					System.out.println("Escolha o tipo de gado que deseja cadastrar: \n[1]GADO LEITEIRO \n[2]GADO DE CORTE");
@@ -45,7 +55,11 @@ public class Main {
 					}
 					break;
 
-
+					/**
+					 * Central de Ultrassom.
+					 * Trata do gerenciamento de ultrassons,
+					 * permitindo registrar novos ultrassons para gado de leite ou gado de corte.
+					 */
 				case 2:
 
 					while (true) {
@@ -106,6 +120,11 @@ public class Main {
 					}
 					break;
 
+					/**
+					 * Gerenciamento do Período Pré-Parto.
+					 * Trata do gerenciamento de atividades relacionadas ao período pré-parto,
+					 * como a aplicação de bisnaga de vaca seca, o registro de nascimento de bezerros e o teste de qualidade do colostro.
+					 */
 				case 3:
 
 					System.out.println("-=-=-=Gerenciamento Preíodo Pré-parto");
@@ -125,7 +144,7 @@ public class Main {
 
 							case 1: //  Aplicação de Bisnaga de Vaca Seca
 
-
+									
 								System.out.println("-=-=-=REGISTRO APLICAÇÃO BISNAGA DE VACA SECA=-=-=-");
 								System.out.println("Escolha: \n[1]Gado de leite \n[2]Gado de corte 								"
 										+ "\n[3]Voltar ao menu de gerenciamento de parto");
@@ -145,7 +164,7 @@ public class Main {
 											gado.aplicacaoBisnagaDeVacaSeca();
 											found = true;
 											break;		
-
+											
 										}
 									}
 								}
@@ -212,7 +231,7 @@ public class Main {
 								}
 								break;
 
-							case 3: // Teste de Qualidade de Colostro
+							case 3: // TESTE QUALIDADE DE COLOSTRO
 
 								System.out.println("-=-=-=TESTE QUALIDADE DE COLOSTRO=-=-=-");
 								System.out.println("Escolha: \n[1]Gado de leite \n[2]Gado de corte");
@@ -267,8 +286,12 @@ public class Main {
 	}
 
 
-
-
+	/**
+	 * Imprime a lista de gado de leite.
+	 * Este método exibe informações detalhadas sobre cada animal da lista de gado de leite,
+	 * incluindo nome, número do brinco, data de ultrassom, previsão de nascimento do bezerro,
+	 * início do período seco, regime pré-parto, aplicação de bisnaga de vaca seca e informações do bezerro.
+	 */
 	public static void printListaGadoDeLeite() {
 		System.out.println("\n-=-=-=Lista de Gado de Leite-=-=-=-");
 		for (GadoDeLeite gado : listaGadoDeLeite) {
@@ -329,7 +352,12 @@ public class Main {
 
 	}
 
-
+	/**
+	 * Imprime a lista de gado de corte.
+	 * Este método exibe informações detalhadas sobre cada animal da lista de gado de corte,
+	 * incluindo nome, número do brinco, data de ultrassom, previsão de nascimento do bezerro,
+	 * regime pré-parto, aplicação de bisnaga de vaca seca e informações do bezerro.
+	 */
 	public static void printListaGadoDeCorte() {
 		System.out.println("\n-=-=-=Lista de Gado de Corte-=-=-=-");
 		for (GadoDeCorte gado : listaGadoDeCorte) {
